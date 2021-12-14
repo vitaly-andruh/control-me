@@ -5,14 +5,44 @@
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
     <link href="./styles.css" rel="stylesheet">
-    <title>Hello World!</title>
+    <link href="./node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <title>ControlMe</title>
   </head>
   <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
-
+    <div class="container position-absolute top-50 start-50 translate-middle">
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <img src="./images/user.png" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Подконтрольное лицо</h5>
+              <p class="card-text">Просмотр списка и информации о подконтрольных лицах</p>
+              <a href="./pages/listOfCustomers.html" class="btn btn-primary">Просмотреть</a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card">
+            <img src="./images/useradd.png" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Регистрация</h5>
+              <p class="card-text">Добавить информацию о новом подконтрольном лице</p>
+              <a href="#" class="btn btn-primary">Зарегистрировать</a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card">
+            <img src="./images/search.png" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Статистика</h5>
+              <p class="card-text">Поиск и просотр информации о подконтрольных лицах</p>
+              <a href="#" class="btn btn-primary">Поиск</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- You can also require other files to run in this process -->
     <script src="./renderer.js"></script>
   </body>
