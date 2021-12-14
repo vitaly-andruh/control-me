@@ -32,9 +32,9 @@ class Person {
 const getMockUser = () => {
   let person = new Person();
 
-  person.id = 0;
+  person.number = 0;
   person.firstName = 'Степан';
-  person.lastLame = 'Степанов';
+  person.lastName = 'Степанов';
   person.midleName = 'Степанович';
 
   person.nationality = 'Республика Беларусь';
@@ -71,8 +71,47 @@ const getAllPersons = () => {
   return [];
 }
 
+const fillControlPersonRow = (personRecord) => {
+
+  const tr = document.createElement('tr');
+
+  tr.setAttribute( "data-bs-toggle", "modal" )
+  tr.setAttribute( "data-bs-target", "#exampleModal")
+  tr.setAttribute( "data-id", personRecord.id)
+
+  if (!personRecord) return tr;
+  
+  let td = document.createElement('td');
+  td.innerText = personRecord.number;
+  tr.appendChild(td);
+
+  td = document.createElement('td');
+  td.innerText = personRecord.lastName + ' ' + personRecord.firstName + ' ' + personRecord.midleName;
+  tr.appendChild(td);
+
+  td = document.createElement('td');
+  td.innerText = personRecord.nationality;
+  tr.appendChild(td);
+
+  td = document.createElement('td');
+  td.innerText = personRecord.pasport;
+  tr.appendChild(td);
+
+  td = document.createElement('td');
+  td.innerText = personRecord.idNumber;
+  tr.appendChild(td);
+
+  td = document.createElement('td');
+  td.innerText = personRecord.birthDate;
+  tr.appendChild(td);
+
+  return tr;
+
+}
+
 
 
 module.exports.Person = Person;
 module.exports.getMockUser = getMockUser;
 module.exports.getAllPersons = getAllPersons;
+module.exports.fillControlPersonRow = fillControlPersonRow;

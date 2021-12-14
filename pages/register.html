@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="img-src 'self' data:; script-src 'self'">
+    <link href="../styles.css" rel="stylesheet">
+    <link href="../node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <title>ControlMe - Регистрация</title>
+  </head>
+  <body>
+
+    <div class="container-fluid p-3">
+      <ul class="nav nav-tabs justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link" href="../index.html">Меню</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../pages/listOfCustomers.html" >Подконтрольное лицо</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active disabled" href="../pages/listOfCustomers.html">Регистрация</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Статистика</a>
+        </li>
+      </ul>
+
+      <div class="row p-3">
+        <form id="regForm">
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="firstName">Фамилия</label>
+              <input type="text" class="form-control" id="firstName" placeholder="">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="lastName">Имя</label>
+              <input type="text" class="form-control" id="lastName" placeholder="">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="midleName">Отчество</label>
+              <input type="text" class="form-control" id="midleName" placeholder="">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputAddress">Address</label>
+            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+          </div>
+          <div class="form-group">
+            <label for="inputAddress2">Address 2</label>
+            <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputCity">City</label>
+              <input type="text" class="form-control" id="inputCity">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="inputState">State</label>
+              <select id="inputState" class="form-control">
+                <option selected>Choose...</option>
+                <option>...</option>
+              </select>
+            </div>
+            <div class="form-group col-md-2">
+              <label for="inputZip">Zip</label>
+              <input type="text" class="form-control" id="inputZip">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="gridCheck">
+              <label class="form-check-label" for="gridCheck">
+                Check me out
+              </label>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Sign in</button>
+        </form>
+      </div>
+
+    </div>
+
+
+    <!-- You can also require other files to run in this process -->
+    <script src="../renderer.js"></script>
+    <script src="../controllers/register.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+  </body>
+</html>

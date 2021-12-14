@@ -3,5 +3,11 @@
 .card img {
   width: 100px;
 }
+.form-row {
+  display: flex;
+}
+.form-group {
+  padding: 10px;
+}
 
 /* Add styles here to customize the appearance of your app */
