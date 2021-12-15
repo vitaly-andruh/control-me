@@ -27,55 +27,109 @@
       </ul>
 
       <div class="row p-3">
-        <form id="regForm">
+        <form id="regForm" class="needs-validation" novalidate>
           <div class="form-row">
             <div class="form-group col-md-4">
               <label for="firstName">Фамилия</label>
-              <input type="text" class="form-control" id="firstName" placeholder="">
+              <input type="text" class="form-control" id="firstName" placeholder="" required>
             </div>
             <div class="form-group col-md-4">
               <label for="lastName">Имя</label>
-              <input type="text" class="form-control" id="lastName" placeholder="">
+              <input type="text" class="form-control" id="lastName" placeholder="" required>
             </div>
             <div class="form-group col-md-4">
               <label for="midleName">Отчество</label>
-              <input type="text" class="form-control" id="midleName" placeholder="">
+              <input type="text" class="form-control" id="midleName" placeholder="" required>
             </div>
           </div>
           <div class="form-group">
-            <label for="inputAddress">Address</label>
-            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-          </div>
-          <div class="form-group">
-            <label for="inputAddress2">Address 2</label>
-            <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+            <label for="nationality">Гражданство</label>
+            <input type="text" class="form-control" id="nationality" placeholder="">
           </div>
           <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="inputCity">City</label>
-              <input type="text" class="form-control" id="inputCity">
+            <div class="form-group col-sm-4">
+              <label for="pasport">Паспорт</label>
+              <input type="text" class="form-control" id="pasport" placeholder="">
             </div>
-            <div class="form-group col-md-4">
-              <label for="inputState">State</label>
-              <select id="inputState" class="form-control">
-                <option selected>Choose...</option>
-                <option>...</option>
-              </select>
-            </div>
-            <div class="form-group col-md-2">
-              <label for="inputZip">Zip</label>
-              <input type="text" class="form-control" id="inputZip">
+            <div class="form-group col-sm-8">
+              <label for="idNumber">Идентификационный номер</label>
+              <input type="text" class="form-control" id="idNumber" placeholder="">
             </div>
           </div>
           <div class="form-group">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="gridCheck">
-              <label class="form-check-label" for="gridCheck">
-                Check me out
-              </label>
+            <label for="birthDate">Дата рождения</label>
+            <input type="date" class="form-control" id="birthDate" placeholder="">
+          </div>
+
+          <div class="form-group row align-middle">
+            <div class="col-sm-3 label-left">Наличные денежные средства</div>
+            <div class="form-group col-sm-3">
+              <label for="amount">Сумма</label>
+              <input type="text" class="form-control" id="amount" placeholder="">
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="currency">Код валюты</label>
+              <input type="text" class="form-control" id="currency" placeholder="">
             </div>
           </div>
-          <button type="submit" class="btn btn-primary">Sign in</button>
+
+          <div class="form-group row align-middle">
+            <div class="col-sm-3 label-left">Денежные инструменты</div>
+            <div class="form-group col-sm-3">
+              <label for="moneyTools">Вид</label>
+              <input type="text" class="form-control" id="moneyTools" placeholder="">
+            </div>
+            <div class="form-group col-sm-3">
+              <label for="moneyToolsAmount">Сумма</label>
+              <input type="text" class="form-control" id="moneyToolsAmount" placeholder="">
+            </div>
+            <div class="form-group col-sm-3">
+              <label for="moneyToolsCurrency">Код валюты</label>
+              <input type="text" class="form-control" id="moneyToolsCurrency" placeholder="">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="moveDate">Дата перемещения</label>
+            <input type="date" class="form-control" id="moveDate" placeholder="">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-sm-6">
+              <label for="customs">Таможня</label>
+              <input type="text" class="form-control" id="customs" placeholder="">
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="department">Пункт таможенного оформления</label>
+              <input type="text" class="form-control" id="department" placeholder="">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-sm-8">
+              <label for="direction">Направление перемещения</label>
+              <select id="direction" class="form-control">
+                <option selected>Выберете...</option>
+                <option>Въезд</option>
+                <option>Выезд</option>
+              </select>
+            </div>
+            <div class="form-group col-sm-4 label-left ">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="isUnderControl">
+                <label class="form-check-label" for="gridCheck">
+                  Взять на контроль
+                </label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group  col-sm-8">
+              <p></p>
+              <button type="submit" class="btn btn-primary">Зарегистрировать</button>
+            </div>
+          </div>
         </form>
       </div>
 

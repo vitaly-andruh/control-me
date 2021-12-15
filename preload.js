@@ -62,9 +62,27 @@ window.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('form');
     if (form) {
       form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        console.log(e.target);
-        register();
+        var forms = document.getElementsByClassName('needs-validation');
+        // Loop over them and prevent submission
+
+        var isValid = false;
+        var validation = Array.prototype.filter.call(forms, function(form) {
+
+            if (form.checkValidity() === false) {
+              e.preventDefault();
+              e.stopPropagation();
+            }
+            isValid = form.checkValidity();
+            form.classList.add('was-validated');
+
+        });
+
+        if (isValid) {
+          e.preventDefault();
+          console.log(isValid);
+          register();
+        }
+
       });
     }
 })
