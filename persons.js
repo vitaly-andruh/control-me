@@ -5,7 +5,7 @@ const db = require('electron-db');
 class Person {
   id;
   firstName;
-  lastLame;
+  lastName;
   midleName;
 
   nationality;
@@ -110,8 +110,75 @@ const fillControlPersonRow = (personRecord) => {
 }
 
 
+const fillStatisticRow = (personRecord) => {
+
+  const tr = document.createElement('tr');
+
+  tr.setAttribute( "data-bs-toggle", "modal" )
+  tr.setAttribute( "data-bs-target", "#statisticModal")
+  tr.setAttribute( "data-id", personRecord.id)
+
+  if (!personRecord) return tr;
+  
+  let td = document.createElement('td');
+  td.innerText = personRecord.number;
+  tr.appendChild(td);
+
+  td = document.createElement('td');
+  td.innerText = personRecord.lastName + ' ' + personRecord.firstName + ' ' + personRecord.midleName;
+  tr.appendChild(td);
+
+  td = document.createElement('td');
+  td.innerText = personRecord.nationality;
+  tr.appendChild(td);
+
+  td = document.createElement('td');
+  td.innerText = personRecord.pasport;
+  tr.appendChild(td);
+
+  td = document.createElement('td');
+  td.innerText = personRecord.idNumber;
+  tr.appendChild(td);
+
+  td = document.createElement('td');
+  td.innerText = personRecord.birthDate;
+  tr.appendChild(td);
+
+  td = document.createElement('td');
+  td.innerText = personRecord.moveDate;
+  tr.appendChild(td);
+
+  td = document.createElement('td');
+  td.innerText = personRecord.amount;
+  tr.appendChild(td);
+
+  td = document.createElement('td');
+  td.innerText = personRecord.currency;
+  tr.appendChild(td);
+
+  td = document.createElement('td');
+  td.innerText = personRecord.customs;
+  tr.appendChild(td);
+
+  td = document.createElement('td');
+  td.innerText = personRecord.department;
+  tr.appendChild(td);
+
+  td = document.createElement('td');
+  td.innerText = personRecord.direction;
+  tr.appendChild(td);
+
+  if (personRecord.isUnderControl) {
+    tr.classList.add('table-warning');
+  }
+
+  return tr;
+
+}
+
 
 module.exports.Person = Person;
 module.exports.getMockUser = getMockUser;
 module.exports.getAllPersons = getAllPersons;
 module.exports.fillControlPersonRow = fillControlPersonRow;
+module.exports.fillStatisticRow = fillStatisticRow;

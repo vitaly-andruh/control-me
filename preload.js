@@ -2,90 +2,53 @@
 // It has the same sandbox as a Chrome extension.
 
 const db = require('electron-db');
-const { getMockUser, getAllPersons, fillControlPersonRow, Person } = require('./persons.js');
+const { getMockUser, fillStatisticRow, fillControlPersonRow, Person } = require('./persons.js');
 var currentTableData;  
 const path = require('path')
 var location = path.join(__dirname, '')
-window.addEventListener('DOMContentLoaded', () => {
 
-  // Create database if don't exist
-
-  // This will save the database in the same directory as the application.
-
-
-  
-  if (!db.valid('persons', location)) {
-    db.createTable('persons', location, (succ, msg) => {
-      // succ - boolean, tells if the call is successful
-      if (succ) {
-        replaceText(`result`, msg)
-      } else {
-        replaceText(`result`, 'An error has occured. ' + msg)
-      }
-    })
-  }
-
-  // Create mock Data If No records
-
+const initControlPerson = () => {
+  const dataTable = document.querySelectorAll('#dataTable > tbody');
+  if (dataTable) {
     db.getAll('persons', location, (succ, data) => {
-      if (data.length === 0) {
-        db.insertTableContent('persons', location, getMockUser(), (succ, msg) => {
-          // succ - boolean, tells if the call is successful
-          console.log("Success: " + succ);
-          console.log("Message: " + msg);
-        })
-      }
-      // succ - boolean, tells if the call is successful
-      // data - array of objects that represents the rows.
-    })
-
-    const dataTable = document.querySelectorAll('#dataTable > tbody');
-
-    if (dataTable) {
-      db.getAll('persons', location, (succ, data) => {
-        data = succ ? data : [];
-        currentTableData = data;
-        data.forEach(element => {
-          console.log(element);
+      data = succ ? data : [];
+      currentTableData = data;
+      data.forEach(element => {
+        if (element.isUnderControl) {
           const dataTableBody = document.querySelector('#dataTable > tbody');
           dataTableBody.appendChild(fillControlPersonRow(element));
           const dataTableRows = document.querySelector('#dataTable > tbody ');
           if (dataTableRows) {
             dataTableRows.addEventListener('click', (e) => {
-              console.log(e.target);
               fillModalWindow(data, e.target.parentNode.getAttribute("data-id"));
             });
           }
-        });
-      })
-    }
-    const form = document.querySelector('form');
-    if (form) {
-      form.addEventListener('submit', (e) => {
-        var forms = document.getElementsByClassName('needs-validation');
-        // Loop over them and prevent submission
-
-        var isValid = false;
-        var validation = Array.prototype.filter.call(forms, function(form) {
-
-            if (form.checkValidity() === false) {
-              e.preventDefault();
-              e.stopPropagation();
-            }
-            isValid = form.checkValidity();
-            form.classList.add('was-validated');
-
-        });
-
-        if (isValid) {
-          e.preventDefault();
-          console.log(isValid);
-          register();
         }
-
       });
-    }
-})
+    })
+  }
+}
+
+const initStatistic = () => {
+  const statisticTable = document.querySelectorAll('#statisticTable > tbody');
+  if (statisticTable) {
+    db.getAll('persons', location, (succ, data) => {
+      data = succ ? data : [];
+      currentTableData = data;
+      data.forEach(element => {
+          const dataTableBody = document.querySelector('#statisticTable > tbody');
+          dataTableBody.appendChild(fillStatisticRow(element));
+          const dataTableRows = document.querySelector('#statisticTable > tbody ');
+          if (dataTableRows) {
+            dataTableRows.addEventListener('click', (e) => {
+              console.log(e.target);
+              fillDetailModalWindow(data, e.target.parentNode.getAttribute("data-id"));
+            });
+          }
+      });
+    })
+  }
+}
 
 const fillModalWindow = (data, id) => {
   const tr = document.querySelector('#modalData > table > tbody > tr');
@@ -110,18 +73,187 @@ const fillModalWindow = (data, id) => {
 
 }
 
+const fillDetailModalWindow = (data, id) => {
+
+  const modal = document.querySelector('#exampleModalLabel');
+  const personRecord = data.find(x => x.id === parseInt(id));
+
+  console.log(personRecord)
+
+  modal.innerHTML = personRecord.lastName + ' ' + personRecord.firstName 
+      + ' ' + personRecord.midleName + ' (' +  personRecord.pasport + ')';
+
+  let fields = [
+    'firstName',
+    'lastName',
+    'midleName',
+    'nationality',
+    'pasport',
+    'idNumber',
+    'birthDate',
+    'amount',
+    'currency',
+    'moneyTools',
+    'moneyToolsAmount',
+    'moneyToolsCurrency',
+    'moveDate',
+    'customs',
+    'department',
+    'direction',
+    'isUnderControl',
+    'accidentDate',
+    'accedentReason',
+    'recomendations',
+  ];
+
+  fields.forEach(item => {
+    if (personRecord[item]) {
+      document.querySelector("#" + item).value = personRecord[item];
+    }
+  });
+
+
+}
+
+const fillPersonObjectFromForm = (arrFields) => {
+  const person = new Person();
+  db.getAll('persons', location, (succ, data) => {
+    arrFields.forEach((item) => {
+      let field = document.querySelector("#" + item)
+      if (field && field.value) {
+        person[item] = document.querySelector("#" + item).value;
+      }
+      if (field && field.type === "checkbox") {
+        person[item] = document.querySelector("#" + item).checked;
+      }
+    });
+    data = succ ? data : [];
+    person['number'] = data.length + 1;
+  });
+  return person;
+}
+
 const register = () => {
-  console.log('register');
-
-  let person = getMockUser();
-
-  person.firstName = document.querySelector("#firstName").value;
-  person.lastName = document.querySelector("#lastName").value;
-  person.midleName = document.querySelector("#midleName").value;
-
-  db.insertTableContent('persons', location, person, (succ, msg) => {
+  let fields = [
+    'firstName',
+    'lastName',
+    'midleName',
+    'nationality',
+    'pasport',
+    'idNumber',
+    'birthDate',
+    'amount',
+    'currency',
+    'moneyTools',
+    'moneyToolsAmount',
+    'moneyToolsCurrency',
+    'moveDate',
+    'customs',
+    'department',
+    'direction',
+    'isUnderControl',
+    'accidentDate',
+    'accedentReason',
+    'recomendations',
+  ];
+  db.insertTableContent('persons', location, fillPersonObjectFromForm(fields), (succ, msg) => {
     // succ - boolean, tells if the call is successful
     console.log("Success: " + succ);
     console.log("Message: " + msg);
   })
 }
+
+const initRegister = () => {
+  const controlCheckbox =  document.querySelector('#isUnderControl');
+  const controlForms =  document.querySelector('#controlForms');
+  if (controlCheckbox) {
+    controlCheckbox.addEventListener('change', (e) => {
+
+      if (e.target.checked) {
+        controlForms.classList.remove('d-none');
+        document.querySelector('#accidentDate').setAttribute('required','');
+        document.querySelector('#accedentReason').setAttribute('required','');
+        document.querySelector('#recomendations').setAttribute('required','');
+      } else {
+        controlForms.classList.add('d-none');
+        document.querySelector('#accidentDate').removeAttribute('required');
+        document.querySelector('#accedentReason').removeAttribute('required');
+        document.querySelector('#recomendations').removeAttribute('required');
+      }
+    });
+  }
+
+  const form = document.querySelector('form');
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      var forms = document.getElementsByClassName('needs-validation');
+      var alert = document.getElementsByClassName('alert-success')[0];
+      // Loop over them and prevent submission
+
+      var isValid = false;
+      Array.prototype.filter.call(forms, function(form) {
+          if (form.checkValidity() === false) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+          isValid = form.checkValidity();
+          form.classList.add('was-validated');
+      });
+
+      if (isValid) {
+        e.preventDefault();
+        register();
+        form.classList.add('d-none');
+        alert.classList.remove('d-none');
+      }
+
+    });
+  }
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+
+  const currentPage = document.location.pathname.split("/").at(-1);
+  switch (currentPage) {
+    case 'listOfCustomers.html':
+      initControlPerson();
+      break;
+    case 'statistic.html':
+      initStatistic();
+      break;
+    case 'register.html':
+      initRegister();
+
+    default:
+      //Здесь находятся инструкции, которые выполняются при отсутствии соответствующего значения
+      //statements_def
+      break;
+  }
+
+  // Create database if don't exist
+  // This will save the database in the same directory as the application.
+  if (!db.valid('persons', location)) {
+    db.createTable('persons', location, (succ, msg) => {
+      // succ - boolean, tells if the call is successful
+      if (succ) {
+        replaceText(`result`, msg)
+      } else {
+        replaceText(`result`, 'An error has occured. ' + msg)
+      }
+    })
+  }
+
+  // Create mock Data If No records
+  db.getAll('persons', location, (succ, data) => {
+    if (data.length === 0) {
+      db.insertTableContent('persons', location, getMockUser(), (succ, msg) => {
+        // succ - boolean, tells if the call is successful
+        console.log("Success: " + succ);
+        console.log("Message: " + msg);
+      })
+    }
+    // succ - boolean, tells if the call is successful
+    // data - array of objects that represents the rows.
+  })
+
+});

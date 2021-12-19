@@ -19,14 +19,21 @@
           <a class="nav-link" href="../pages/listOfCustomers.html" >Подконтрольное лицо</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active disabled" href="../pages/listOfCustomers.html">Регистрация</a>
+          <a class="nav-link active disabled" href="../pages/register.html">Регистрация</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Статистика</a>
+          <a class="nav-link" href="../pages/statistic.html">Статистика</a>
         </li>
       </ul>
 
       <div class="row p-3">
+
+
+        <div class="alert alert-success d-none" role="alert">
+          Регистрация выполнена успешно. Вы можете <a href="../pages/listOfCustomers.html" class="alert-link">перейти к списку статистики</a> или <a href="../pages/register.html" class="alert-link">повторить регистрацию</a>.
+        </div>
+
+
         <form id="regForm" class="needs-validation" novalidate>
           <div class="form-row">
             <div class="form-group col-md-4">
@@ -44,12 +51,12 @@
           </div>
           <div class="form-group">
             <label for="nationality">Гражданство</label>
-            <input type="text" class="form-control" id="nationality" placeholder="">
+            <input type="text" class="form-control" id="nationality" placeholder="" required>
           </div>
           <div class="form-row">
             <div class="form-group col-sm-4">
               <label for="pasport">Паспорт</label>
-              <input type="text" class="form-control" id="pasport" placeholder="">
+              <input type="text" class="form-control" id="pasport" placeholder="" required>
             </div>
             <div class="form-group col-sm-8">
               <label for="idNumber">Идентификационный номер</label>
@@ -58,7 +65,7 @@
           </div>
           <div class="form-group">
             <label for="birthDate">Дата рождения</label>
-            <input type="date" class="form-control" id="birthDate" placeholder="">
+            <input type="date" class="form-control" id="birthDate" placeholder="" required>
           </div>
 
           <div class="form-group row align-middle">
@@ -91,30 +98,29 @@
 
           <div class="form-group">
             <label for="moveDate">Дата перемещения</label>
-            <input type="date" class="form-control" id="moveDate" placeholder="">
+            <input type="date" class="form-control" id="moveDate" placeholder="" required>
           </div>
 
           <div class="form-row">
             <div class="form-group col-sm-6">
               <label for="customs">Таможня</label>
-              <input type="text" class="form-control" id="customs" placeholder="">
+              <input type="text" class="form-control" id="customs" placeholder="" required>
             </div>
             <div class="form-group col-sm-6">
               <label for="department">Пункт таможенного оформления</label>
-              <input type="text" class="form-control" id="department" placeholder="">
+              <input type="text" class="form-control" id="department" placeholder="" required>
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-group col-sm-8">
               <label for="direction">Направление перемещения</label>
-              <select id="direction" class="form-control">
-                <option selected>Выберете...</option>
+              <select id="direction" class="form-control" required>
                 <option>Въезд</option>
                 <option>Выезд</option>
               </select>
             </div>
-            <div class="form-group col-sm-4 label-left ">
+            <div class="form-group col-sm-4 label-left "><p></p>
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="isUnderControl">
                 <label class="form-check-label" for="gridCheck">
@@ -123,7 +129,28 @@
               </div>
             </div>
           </div>
-          
+
+          <div id="controlForms" class="d-none">
+            <div class="form-row">
+              <div class="form-group col-sm-6">
+                <label for="accidentDate">Дата привлечения к ответственности</label>
+                <input type="date" class="form-control" id="accidentDate" placeholder="" >
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-sm-6">
+                <label for="accedentReason">Основание</label>
+                <textarea  class="form-control" id="accedentReason" placeholder="" rows="3"></textarea>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="recomendations">Рекомендации</label>
+                <textarea  class="form-control" id="recomendations" placeholder="" rows="3"></textarea>
+              </div>
+            </div>
+          </div>
+       
           <div class="form-row">
             <div class="form-group  col-sm-8">
               <p></p>
