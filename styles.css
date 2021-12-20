@@ -12,5 +12,7 @@
 .label-left {
   align-self: center;
 }
-
+.jumbotron {
+  background-color: #e9ecef;
+}
 /* Add styles here to customize the appearance of your app */

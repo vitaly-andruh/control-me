@@ -29,12 +29,37 @@ const initControlPerson = () => {
   }
 }
 
+Object.filter = (obj, predicate) => 
+  Object.keys(obj)
+        .filter( key => predicate(obj[key]) )
+        .reduce( (res, key) => (res[key] = obj[key], res), {} );
+
+const addIsFilter = (data, fieldName, value) => {
+  return Object.values(Object.filter(data, item => item[fieldName] === value))
+}
+
+const addIsBigerFilter = (data, fieldName, value) => {
+  return Object.values(Object.filter(data, item => parseInt(item[fieldName]) >= value))
+}
+
+const addIsSmallerFilter = (data, fieldName, value) => {
+  return Object.values(Object.filter(data, item => parseInt(item[fieldName]) <= value))
+}
+
 const initStatistic = () => {
   const statisticTable = document.querySelectorAll('#statisticTable > tbody');
   if (statisticTable) {
     db.getAll('persons', location, (succ, data) => {
       data = succ ? data : [];
       currentTableData = data;
+
+      //data = Object.values(Object.filter(data, item => parseInt(item.amount) > 1000))
+      data = addIsFilter(data, 'currency', 'USD');
+      data = addIsBigerFilter(data, 'amount', 445);
+      data = addIsSmallerFilter(data, 'amount', 3000);
+
+
+      console.log(Object.values(data));
       data.forEach(element => {
           const dataTableBody = document.querySelector('#statisticTable > tbody');
           dataTableBody.appendChild(fillStatisticRow(element));
@@ -75,7 +100,7 @@ const fillModalWindow = (data, id) => {
 
 const fillDetailModalWindow = (data, id) => {
 
-  const modal = document.querySelector('#exampleModalLabel');
+  const modal = document.querySelector('#statisticModal #exampleModalLabel');
   const personRecord = data.find(x => x.id === parseInt(id));
 
   console.log(personRecord)
@@ -108,7 +133,7 @@ const fillDetailModalWindow = (data, id) => {
 
   fields.forEach(item => {
     if (personRecord[item]) {
-      document.querySelector("#" + item).value = personRecord[item];
+      document.querySelector("#statisticModal #" + item).value = personRecord[item];
     }
   });
 
