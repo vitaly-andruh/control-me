@@ -46,7 +46,7 @@ const addIsSmallerFilter = (data, fieldName, value) => {
   return Object.values(Object.filter(data, item => parseInt(item[fieldName]) <= value))
 }
 
-const initStatistic = () => {
+const initStatistic = (filter) => {
   const statisticTable = document.querySelectorAll('#statisticTable > tbody');
   if (statisticTable) {
     db.getAll('persons', location, (succ, data) => {
@@ -54,22 +54,55 @@ const initStatistic = () => {
       currentTableData = data;
 
       //data = Object.values(Object.filter(data, item => parseInt(item.amount) > 1000))
-      data = addIsFilter(data, 'currency', 'USD');
-      data = addIsBigerFilter(data, 'amount', 445);
-      data = addIsSmallerFilter(data, 'amount', 3000);
+
+      if (filter && filter['currency']) {
+        data = addIsFilter(data, 'currency', filter['currency']);
+      }
 
 
-      console.log(Object.values(data));
+      //data = addIsFilter(data, 'currency', 'USD');
+      //data = addIsBigerFilter(data, 'amount', 445);
+      //data = addIsSmallerFilter(data, 'amount', 3000);
+
+      document.querySelector('#statisticTable > tbody').innerHTML = '';
       data.forEach(element => {
           const dataTableBody = document.querySelector('#statisticTable > tbody');
           dataTableBody.appendChild(fillStatisticRow(element));
           const dataTableRows = document.querySelector('#statisticTable > tbody ');
+
           if (dataTableRows) {
             dataTableRows.addEventListener('click', (e) => {
-              console.log(e.target);
               fillDetailModalWindow(data, e.target.parentNode.getAttribute("data-id"));
             });
           }
+          const filterButton = document.querySelector('#filterButton');
+          if (filterButton) {
+            filterButton.addEventListener('click', (e) => {
+
+              let filter = {};
+
+
+
+              const currencyFilter = document.querySelector('.jumbotron #currency');
+              if (currencyFilter && currencyFilter.value) {
+
+                filter.currency = currencyFilter.value;
+
+              }
+
+              initStatistic(filter)
+
+              //fillDetailModalWindow(data, e.target.parentNode.getAttribute("data-id"));
+            });
+          }
+
+          const filterResetButton = document.querySelector('#filterResetButton');
+          if (filterResetButton) {
+            filterResetButton.addEventListener('click', (e) => {
+              initStatistic()
+            });
+          }
+
       });
     })
   }
