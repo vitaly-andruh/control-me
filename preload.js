@@ -39,11 +39,65 @@ const addIsFilter = (data, fieldName, value) => {
 }
 
 const addIsBigerFilter = (data, fieldName, value) => {
-  return Object.values(Object.filter(data, item => parseInt(item[fieldName]) >= value))
+  return Object.values(Object.filter(data, item => parseInt(item[fieldName]) >= parseInt(value)))
 }
 
 const addIsSmallerFilter = (data, fieldName, value) => {
-  return Object.values(Object.filter(data, item => parseInt(item[fieldName]) <= value))
+  return Object.values(Object.filter(data, item => parseInt(item[fieldName]) <= parseInt(value)))
+}
+
+const addIsBigerDateFilter = (data, fieldName, value) => {
+  return Object.values(Object.filter(data, item => new Date(item[fieldName]) >= new Date(value)))
+}
+
+const addIsSmallerDateFilter = (data, fieldName, value) => {
+  return Object.values(Object.filter(data, item => new Date(item[fieldName]) <= new Date(value)))
+}
+
+const addTextFilter = (data, filter, fieldName) => {
+  if (filter && filter[fieldName]) {
+    return addIsFilter(data, fieldName, filter[fieldName]);
+  }
+  return data;
+}
+
+const addRangeFilter = (data, filter, fieldNameMin, fieldNameMax, targetField) => {
+  if (filter && filter[fieldNameMax]) {
+    data = addIsSmallerFilter(data, targetField, filter[fieldNameMax]);
+  }
+
+  if (filter && filter[fieldNameMin]) {
+    data = addIsBigerFilter(data, targetField, filter[fieldNameMin]);
+  }
+  return data;
+}
+
+const addDateRangeFilter = (data, filter, fieldNameMin, fieldNameMax, targetField) => {
+  if (filter && filter[fieldNameMax]) {
+    data = addIsSmallerDateFilter(data, targetField, filter[fieldNameMax]);
+  }
+
+  if (filter && filter[fieldNameMin]) {
+    data = addIsBigerDateFilter(data, targetField, filter[fieldNameMin]);
+  }
+  return data;
+}
+
+const addTextFilters = (data, filter, fieldNameArr) => {
+  fieldNameArr.forEach((field) => {
+    data = addTextFilter(data, filter, field);
+  });
+  return data;
+}
+
+const addFilterConditions = (filter, fieldArr) => {
+  fieldArr.forEach((field) => {
+    const someFilter = document.querySelector('.jumbotron #' + field);
+    if (someFilter && someFilter.value) {
+      filter[field] = someFilter.value;
+    }
+  })
+  return filter;
 }
 
 const initStatistic = (filter) => {
@@ -52,11 +106,41 @@ const initStatistic = (filter) => {
     db.getAll('persons', location, (succ, data) => {
       data = succ ? data : [];
       currentTableData = data;
-
+      console.log(filter);
       //data = Object.values(Object.filter(data, item => parseInt(item.amount) > 1000))
+      data = addTextFilters(data, filter, [
+        'firstName',
+        'lastName',
+        'midleName',
+        'nationality',
+        'pasport',
+        'idNumber',
+        'moneyTools',
+        'moneyToolsCurrency',
+        'customs',
+        'currency',
+        'department'
+      ]);
 
-      if (filter && filter['currency']) {
-        data = addIsFilter(data, 'currency', filter['currency']);
+      data = addRangeFilter(data, filter, 
+        'amountFrom',
+        'amountTo',
+        'amount');
+
+      data = addRangeFilter(data, filter, 
+        'moneyToolsAmountFrom',
+        'moneyToolsAmountTo',
+        'moneyToolsAmount');
+
+      data = addDateRangeFilter(data, filter, 
+        'moveDateFrom',
+        'moveDateTo',
+        'moveDate');
+
+      if (filter && filter.direction !== 'Въезд и Выезд') {
+        data = addTextFilters(data, filter, [
+          'direction'
+        ]);
       }
 
 
@@ -77,34 +161,54 @@ const initStatistic = (filter) => {
           }
           const filterButton = document.querySelector('#filterButton');
           if (filterButton) {
-            filterButton.addEventListener('click', (e) => {
+            filterButton.onclick = (e) => {
 
-              let filter = {};
+              let filter = addFilterConditions({},
+                [
+                  'firstName',
+                  'lastName',
+                  'midleName',
+                  'nationality',
+                  'pasport',
+                  'idNumber',
+                  'moneyTools',
+                  'currency',
+                  'moneyToolsCurrency',
+                  'customs',
+                  'department',
+                  'direction',
+                  'amountFrom',
+                  'amountTo',
+                  'moneyToolsAmountFrom',
+                  'moneyToolsAmountTo',
+                  'moveDateFrom',
+                  'moveDateTo'
+                ]
+                
+                );
 
-
-
-              const currencyFilter = document.querySelector('.jumbotron #currency');
-              if (currencyFilter && currencyFilter.value) {
-
-                filter.currency = currencyFilter.value;
-
-              }
 
               initStatistic(filter)
-
+              window.scrollTo({
+                top: 730,
+                left: 0,
+                behavior: 'smooth'
+              });
               //fillDetailModalWindow(data, e.target.parentNode.getAttribute("data-id"));
-            });
+            };
           }
 
           const filterResetButton = document.querySelector('#filterResetButton');
           if (filterResetButton) {
-            filterResetButton.addEventListener('click', (e) => {
-              initStatistic()
-            });
+            filterResetButton.onclick = (e) => {
+              initStatistic();
+
+            };
           }
 
       });
     })
+
   }
 }
 

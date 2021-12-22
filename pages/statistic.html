@@ -26,99 +26,121 @@
         </li>
       </ul>
 
-      <div class="container-fluid p-3">
-        <div class="jumbotron p-4">
-          <p class="lead">Поиск по статистике</p>
-          <hr class="my-4">
-          <div class="form-row">
-            <div class="form-group col-md-4">
-              <label for="firstName">Фамилия</label>
-              <input type="text" class="form-control" id="firstName" placeholder="" required>
-            </div>
-            <div class="form-group col-md-4">
-              <label for="lastName">Имя</label>
-              <input type="text" class="form-control" id="lastName" placeholder="" required>
-            </div>
-            <div class="form-group col-md-4">
-              <label for="midleName">Отчество</label>
-              <input type="text" class="form-control" id="midleName" placeholder="" required>
+      <div class="container-fluid">
+        <div class="accordion m-3" id="accordionPanelsStayOpenExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                Поиск по статистике 
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+              <div class="accordion-body">
+                <div class="jumbotron p-4" >
+                  <div class="form-row">
+                    <div class="form-group col-md-4">
+                      <label for="firstName">Фамилия</label>
+                      <input type="text" class="form-control" id="firstName" placeholder="" required>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="lastName">Имя</label>
+                      <input type="text" class="form-control" id="lastName" placeholder="" required>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="midleName">Отчество</label>
+                      <input type="text" class="form-control" id="midleName" placeholder="" required>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="nationality">Гражданство</label>
+                    <input type="text" class="form-control" id="nationality" placeholder="" required>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-sm-4">
+                      <label for="pasport">Паспорт</label>
+                      <input type="text" class="form-control" id="pasport" placeholder="" required>
+                    </div>
+                    <div class="form-group col-sm-8">
+                      <label for="idNumber">Идентификационный номер</label>
+                      <input type="text" class="form-control" id="idNumber" placeholder="">
+                    </div>
+                  </div>
+        
+                  <div class="form-group row align-middle">
+                    <div class="col-sm-3 label-left">Наличные денежные средства</div>
+                    <div class="form-group col-sm-4">
+                      <label for="amountFrom">Сумма в эквиваленте от</label>
+                      <input type="text" class="form-control" id="amountFrom" placeholder="">
+                    </div>
+                    <div class="form-group col-sm-3">
+                      <label for="amountTo">до</label>
+                      <input type="text" class="form-control" id="amountTo" placeholder="">
+                    </div>
+                    <div class="form-group col-sm-2">
+                      <label for="currency">Код валюты</label>
+                      <input type="text" class="form-control" id="currency" placeholder="">
+                    </div>
+                  </div>
+        
+                  <div class="form-group row align-middle">
+                    <div class="col-sm-3 label-left">Денежные инструменты</div>
+                    <div class="form-group col-sm-2">
+                      <label for="moneyTools">Вид</label>
+                      <input type="text" class="form-control" id="moneyTools" placeholder="">
+                    </div>
+                    <div class="form-group col-sm-3">
+                      <label for="moneyToolsAmountFrom">Сумма в эквиваленте от</label>
+                      <input type="text" class="form-control" id="moneyToolsAmountFrom" placeholder="">
+                    </div>
+                    <div class="form-group col-sm-2">
+                      <label for="moneyToolsAmountTo">до</label>
+                      <input type="text" class="form-control" id="moneyToolsAmountTo" placeholder="">
+                    </div>
+                    <div class="form-group col-sm-2">
+                      <label for="moneyToolsCurrency">Код валюты</label>
+                      <input type="text" class="form-control" id="moneyToolsCurrency" placeholder="">
+                    </div>
+                  </div>
+        
+                  <div class="form-group row align-middle">
+                    <div class="col-sm-3 label-left">Дата перемещения</div>
+                    <div class="form-group col-sm-4">
+                      <label for="moveDateFrom">c</label>
+                      <input type="date" class="form-control" id="moveDateFrom" placeholder="" required>
+                    </div>
+                    <div class="form-group col-sm-4">
+                      <label for="moveDateTo">по</label>
+                      <input type="date" class="form-control" id="moveDateTo" placeholder="" required>
+                    </div>
+                  </div>
+        
+                  <div class="form-row">
+                    <div class="form-group col-sm-4">
+                      <label for="customs">Таможня</label>
+                      <input type="text" class="form-control" id="customs" placeholder="" required>
+                    </div>
+                    <div class="form-group col-sm-4">
+                      <label for="department">Пункт таможенного оформления</label>
+                      <input type="text" class="form-control" id="department" placeholder="" required>
+                    </div>
+                    <div class="form-group col-sm-4">
+                      <label for="direction">Направление перемещения</label>
+                      <select id="direction" class="form-control" required>
+                        <option>Въезд и Выезд</option>
+                        <option>Въезд</option>
+                        <option>Выезд</option>
+                      </select>
+                    </div>
+                  </div>
+                  </div>
+                  <a class="btn btn-primary mt-2" href="#" id="filterButton" role="button">Найти</a> <a class="btn mt-2" id="filterResetButton" href="#" role="button">Сбросить поиск</a>
+        
+        
+                </div>              </div>
             </div>
           </div>
-          <div class="form-group">
-            <label for="nationality">Гражданство</label>
-            <input type="text" class="form-control" id="nationality" placeholder="" required>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-sm-4">
-              <label for="pasport">Паспорт</label>
-              <input type="text" class="form-control" id="pasport" placeholder="" required>
-            </div>
-            <div class="form-group col-sm-8">
-              <label for="idNumber">Идентификационный номер</label>
-              <input type="text" class="form-control" id="idNumber" placeholder="">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="birthDate">Дата рождения</label>
-            <input type="date" class="form-control" id="birthDate" placeholder="" required>
-          </div>
+        </div>
 
-          <div class="form-group row align-middle">
-            <div class="col-sm-3 label-left">Наличные денежные средства</div>
-            <div class="form-group col-sm-3">
-              <label for="amount">Сумма</label>
-              <input type="text" class="form-control" id="amount" placeholder="">
-            </div>
-            <div class="form-group col-sm-6">
-              <label for="currency">Код валюты</label>
-              <input type="text" class="form-control" id="currency" placeholder="">
-            </div>
-          </div>
-
-          <div class="form-group row align-middle">
-            <div class="col-sm-3 label-left">Денежные инструменты</div>
-            <div class="form-group col-sm-3">
-              <label for="moneyTools">Вид</label>
-              <input type="text" class="form-control" id="moneyTools" placeholder="">
-            </div>
-            <div class="form-group col-sm-3">
-              <label for="moneyToolsAmount">Сумма</label>
-              <input type="text" class="form-control" id="moneyToolsAmount" placeholder="">
-            </div>
-            <div class="form-group col-sm-3">
-              <label for="moneyToolsCurrency">Код валюты</label>
-              <input type="text" class="form-control" id="moneyToolsCurrency" placeholder="">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="moveDate">Дата перемещения</label>
-            <input type="date" class="form-control" id="moveDate" placeholder="" required>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group col-sm-6">
-              <label for="customs">Таможня</label>
-              <input type="text" class="form-control" id="customs" placeholder="" required>
-            </div>
-            <div class="form-group col-sm-6">
-              <label for="department">Пункт таможенного оформления</label>
-              <input type="text" class="form-control" id="department" placeholder="" required>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group col-sm-12">
-              <label for="direction">Направление перемещения</label>
-              <select id="direction" class="form-control" required>
-                <option>Въезд и Выезд</option>
-                <option>Въезд</option>
-                <option>Выезд</option>
-              </select>
-            </div>
-          </div>
-          <hr class="my-4">
-            <a class="btn btn-primary btn-lg" href="#" id="filterButton" role="button">Найти</a> <a class="btn btn-lg" id="filterResetButton" href="#" role="button">Сбросить поиск</a>
 
         </div>
       </div>  
